@@ -1,0 +1,22 @@
+@function strip-unit($value) {
+    @if type-of($value)=='number' and unit($value) !='' {
+        @return $value / ($value * 0 + 1);
+    }
+
+    @return $value;
+}
+
+:root {
+  --base-width: 750;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --base-width: 1200;
+  }
+}
+
+@function vw($px) {
+  $px-value: strip-unit($px);
+  @return calc(#{$px-value} / var(--base-width) * 100vw);
+}
